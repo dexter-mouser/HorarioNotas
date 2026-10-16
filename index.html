@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#e6e6e3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0f14" media="(prefers-color-scheme: dark)">
+  <title>Horario</title>
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/tono.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/inicio/fondo-inicial.js"></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <!-- Imagen de fondo (decorativa) -->
+  <div class="escena" aria-hidden="true"></div>
+
+  <div class="app">
+    <main class="vistas" id="vistas">
+
+      <!-- ===================== HOY ===================== -->
+      <section class="vista" id="vista-hoy" aria-labelledby="titulo-hoy">
+        <header class="cabecera">
+          <div>
+            <h1 id="titulo-hoy">Hoy</h1>
+            <!-- LÓGICA: vista-hoy.js rellena la fecha -->
+            <p class="subtitulo" id="fecha-hoy">viernes, 16 de octubre</p>
+          </div>
+          <button class="boton-redondo" id="boton-modo" type="button" aria-label="Cambiar de modo"><span data-icono="sol" data-etiqueta="Sol"></span></button>
+        </header>
+
+        <div class="segmentado" data-segmentado="vista-hoy" role="group" aria-label="Vista de Hoy">
+          <button type="button" data-valor="agenda" aria-pressed="true">Agenda</button>
+          <button type="button" data-valor="notas" aria-pressed="false">Notas <span class="contador">5</span></button>
+        </div>
+
+        <!-- Vista Agenda (contenido de muestra: lo sustituye vista-hoy.js) -->
+        <div id="agenda">
+          <div class="dias-bloque">
+            <div class="dias" data-segmentado="dia-hoy" role="group" aria-label="Día de la semana"><button type="button" data-valor="0" aria-label="Lunes" aria-pressed="false">L</button><button type="button" data-valor="1" aria-label="Martes" aria-pressed="false">M</button><button type="button" data-valor="2" aria-label="Miércoles" aria-pressed="false">X</button><button type="button" data-valor="3" aria-label="Jueves" aria-pressed="false">J</button><button type="button" data-valor="4" aria-label="Viernes" aria-pressed="true">V</button><button type="button" data-valor="5" aria-label="Sábado" aria-pressed="false">S</button><button type="button" data-valor="6" aria-label="Domingo" aria-pressed="false">D</button></div>
+            <div class="dias-marca" aria-hidden="true"><span class="marca-dia" data-dia="0"></span><span class="marca-dia" data-dia="1"></span><span class="marca-dia" data-dia="2"></span><span class="marca-dia" data-dia="3"></span><span class="marca-dia" data-dia="4"></span><span class="marca-dia" data-dia="5"></span><span class="marca-dia" data-dia="6"></span></div>
+          </div>
+
+          <section id="fijadas" aria-labelledby="titulo-fijadas">
+            <h2 class="seccion-titulo" id="titulo-fijadas">Fijadas</h2>
+            <button class="tarjeta fijada" type="button" data-abrir="hoja-nota"><span data-icono="chincheta" data-etiqueta="Nota fijada"></span><span class="evento-titulo">Entregar informe</span><span class="etiqueta destacada">Vence hoy · 18:00</span><span data-icono="campana" data-etiqueta="Aviso activo"></span></button>
+            <button class="tarjeta fijada" type="button" data-abrir="hoja-nota"><span data-icono="chincheta" data-etiqueta="Nota fijada"></span><span class="evento-titulo">Ideas para el proyecto</span><span class="etiqueta">Indefinida</span></button>
+          </section>
+
+          <button class="tarjeta resumen" id="resumen-notas" type="button" data-resumen><span data-icono="nota" data-etiqueta="Notas"></span><span>1 nota vence hoy · 1 vencida</span></button>
+
+          <div id="lista-agenda">
+            <button class="tarjeta evento" type="button" data-abrir="hoja-evento">
+              <span class="evento-horas">08:00 – 10:00</span>
+              <span class="evento-cuerpo"><span class="evento-titulo">Clase de programación</span><span class="evento-nota">Repasar el módulo 3</span></span>
+            </button>
+            <button class="tarjeta evento ahora" type="button" data-abrir="hoja-evento">
+              <span class="evento-horas">12:30 – 13:30</span>
+              <span class="evento-cuerpo"><span class="evento-titulo">Almuerzo</span><span class="marcas"><span class="etiqueta acento">Ahora</span></span></span>
+            </button>
+            <button class="tarjeta evento" type="button" data-abrir="hoja-evento">
+              <span class="evento-horas">15:00 – 16:00</span>
+              <span class="evento-cuerpo"><span class="evento-titulo">Reunión de equipo</span><span class="marcas"><span class="etiqueta">Una vez</span><span data-icono="campana" data-etiqueta="Aviso activo"></span></span></span>
+            </button>
+          </div>
+          <!-- Estado vacío (se muestra cuando no hay eventos): -->
+          <p class="tarjeta tarjeta-vacia" id="agenda-vacia" hidden>Nada este día. Pulsa + para añadir.</p>
+        </div>
+
+        <!-- Vista Notas (contenido de muestra: lo sustituye vista-notas.js) -->
+        <div id="notas" hidden>
+          <h2 class="seccion-titulo">Fijadas</h2>
+          <article class="tarjeta nota"><button class="nota-cuerpo" type="button" data-abrir="hoja-nota"><span class="evento-titulo">Entregar informe</span><span class="marcas"><span class="etiqueta destacada">Vence hoy · 18:00</span><span data-icono="campana" data-etiqueta="Aviso activo"></span></span></button><button class="chincheta" type="button" aria-pressed="true" aria-label="Soltar nota"><span data-icono="chincheta" data-etiqueta="Chincheta"></span></button></article>
+          <article class="tarjeta nota"><button class="nota-cuerpo" type="button" data-abrir="hoja-nota"><span class="evento-titulo">Ideas para el proyecto</span><span class="marcas"><span class="etiqueta">Indefinida</span></span></button><button class="chincheta" type="button" aria-pressed="true" aria-label="Soltar nota"><span data-icono="chincheta" data-etiqueta="Chincheta"></span></button></article>
+          <h2 class="seccion-titulo">Con fecha límite</h2>
+          <article class="tarjeta nota"><button class="nota-cuerpo" type="button" data-abrir="hoja-nota"><span class="evento-titulo">Pagar internet</span><span class="marcas"><span class="etiqueta alerta">Vencida · hace 2 días</span></span></button><button class="chincheta" type="button" aria-pressed="false" aria-label="Fijar nota"><span data-icono="chincheta" data-etiqueta="Chincheta"></span></button></article>
+          <article class="tarjeta nota"><button class="nota-cuerpo" type="button" data-abrir="hoja-nota"><span class="evento-titulo">Revisar contrato</span><span class="marcas"><span class="etiqueta">Vence en 3 días</span></span></button><button class="chincheta" type="button" aria-pressed="false" aria-label="Fijar nota"><span data-icono="chincheta" data-etiqueta="Chincheta"></span></button></article>
+          <h2 class="seccion-titulo">Sin fecha límite</h2>
+          <article class="tarjeta nota"><button class="nota-cuerpo" type="button" data-abrir="hoja-nota"><span class="evento-titulo">Lista de compras</span><span class="marcas"><span class="etiqueta">Indefinida</span></span></button><button class="chincheta" type="button" aria-pressed="false" aria-label="Fijar nota"><span data-icono="chincheta" data-etiqueta="Chincheta"></span></button></article>
+        </div>
+      </section>
+
+      <!-- ===================== SEMANA ===================== -->
+      <section class="vista" id="vista-semana" aria-labelledby="titulo-semana" hidden>
+        <header class="cabecera">
+          <div><h1 id="titulo-semana">Semana</h1><p class="subtitulo" id="rango-semana">12 – 18 de octubre</p></div>
+          <button class="boton-borde" type="button" data-abrir="hoja-plan">Planificar</button>
+        </header>
+        <!-- LÓGICA: vista-semana.js dibuja las tarjetas (muestra estática) -->
+        <div class="semana-rejilla" id="semana-rejilla"><article class="tarjeta tarjeta-dia"><button class="dia-cabecera" type="button" data-ir="hoy"><span class="dia-nombre">Lunes</span><span class="dia-cuenta">2 eventos</span></button><div class="franja" role="img" aria-label="Franja de ocupación de 24 horas"><i class="marca" data-izq="25"></i><i class="marca" data-izq="50"></i><i class="marca" data-izq="75"></i><i class="tramo" data-izq="25.00" data-ancho="33.33"></i><i class="tramo" data-izq="66.67" data-ancho="4.17"></i></div><div class="franja-escala" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div><button class="fila-semana" type="button" data-abrir="hoja-evento"><span class="evento-titulo">Turno mañana</span><span class="evento-horas">06:00 – 14:00</span></button><button class="fila-semana" type="button" data-abrir="hoja-evento"><span class="evento-titulo">Gimnasio</span><span class="evento-horas">16:00 – 17:00</span></button></article><article class="tarjeta tarjeta-dia"><button class="dia-cabecera" type="button" data-ir="hoy"><span class="dia-nombre">Martes</span><span class="dia-cuenta">0 eventos</span></button><div class="franja" role="img" aria-label="Franja de ocupación de 24 horas"><i class="marca" data-izq="25"></i><i class="marca" data-izq="50"></i><i class="marca" data-izq="75"></i></div><div class="franja-escala" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div><p class="libre">Libre</p></article><article class="tarjeta tarjeta-dia"><button class="dia-cabecera" type="button" data-ir="hoy"><span class="dia-nombre">Miércoles</span><span class="dia-cuenta">1 eventos</span></button><div class="franja" role="img" aria-label="Franja de ocupación de 24 horas"><i class="marca" data-izq="25"></i><i class="marca" data-izq="50"></i><i class="marca" data-izq="75"></i><i class="tramo" data-izq="33.33" data-ancho="8.33"></i></div><div class="franja-escala" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div><button class="fila-semana" type="button" data-abrir="hoja-evento"><span class="evento-titulo">Clase de programación</span><span class="evento-horas">08:00 – 10:00</span></button></article><article class="tarjeta tarjeta-dia"><button class="dia-cabecera" type="button" data-ir="hoy"><span class="dia-nombre">Jueves</span><span class="dia-cuenta">0 eventos</span></button><div class="franja" role="img" aria-label="Franja de ocupación de 24 horas"><i class="marca" data-izq="25"></i><i class="marca" data-izq="50"></i><i class="marca" data-izq="75"></i></div><div class="franja-escala" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div><p class="libre">Libre</p></article><article class="tarjeta tarjeta-dia hoy"><button class="dia-cabecera" type="button" data-ir="hoy"><span class="dia-nombre">Viernes <span class="etiqueta acento">Hoy</span></span><span class="dia-cuenta">3 eventos · 1 nota</span></button><div class="franja" role="img" aria-label="Franja de ocupación de 24 horas"><i class="marca" data-izq="25"></i><i class="marca" data-izq="50"></i><i class="marca" data-izq="75"></i><i class="tramo" data-izq="33.33" data-ancho="8.33"></i><i class="tramo" data-izq="52.08" data-ancho="4.17"></i><i class="tramo" data-izq="62.50" data-ancho="4.17"></i></div><div class="franja-escala" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div><button class="fila-semana" type="button" data-abrir="hoja-evento"><span class="evento-titulo">Clase de programación</span><span class="evento-horas">08:00 – 10:00</span></button><button class="fila-semana" type="button" data-abrir="hoja-evento"><span class="evento-titulo">Almuerzo</span><span class="evento-horas">12:30 – 13:30</span></button><button class="fila-semana" type="button" data-abrir="hoja-evento"><span class="evento-titulo">Reunión de equipo</span><span class="evento-horas">15:00 – 16:00</span></button><button class="fila-semana" type="button" data-abrir="hoja-nota"><span data-icono="nota" data-etiqueta="Nota"></span><span class="evento-titulo">Entregar informe</span><span class="evento-horas">18:00</span></button></article><article class="tarjeta tarjeta-dia"><button class="dia-cabecera" type="button" data-ir="hoy"><span class="dia-nombre">Sábado</span><span class="dia-cuenta">0 eventos</span></button><div class="franja" role="img" aria-label="Franja de ocupación de 24 horas"><i class="marca" data-izq="25"></i><i class="marca" data-izq="50"></i><i class="marca" data-izq="75"></i></div><div class="franja-escala" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div><p class="libre">Libre</p></article><article class="tarjeta tarjeta-dia"><button class="dia-cabecera" type="button" data-ir="hoy"><span class="dia-nombre">Domingo</span><span class="dia-cuenta">0 eventos</span></button><div class="franja" role="img" aria-label="Franja de ocupación de 24 horas"><i class="marca" data-izq="25"></i><i class="marca" data-izq="50"></i><i class="marca" data-izq="75"></i></div><div class="franja-escala" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div><p class="libre">Libre</p></article></div>
+      </section>
+
+      <!-- ===================== CALENDARIO ===================== -->
+      <section class="vista" id="vista-calendario" aria-labelledby="mes-titulo" hidden>
+        <header class="cabecera">
+          <div><h1>Calendario</h1></div>
+          <button class="boton-borde" type="button" data-abrir="hoja-plan">Planificar</button>
+        </header>
+        <div class="mes-barra">
+          <button class="boton-redondo" type="button" aria-label="Mes anterior"><span data-icono="izquierda" data-etiqueta="Mes anterior"></span></button>
+          <h2 id="mes-titulo">octubre 2026</h2>
+          <button class="boton-borde" type="button" id="boton-mes-hoy" hidden>Hoy</button>
+          <button class="boton-redondo" type="button" aria-label="Mes siguiente"><span data-icono="derecha" data-etiqueta="Mes siguiente"></span></button>
+        </div>
+        <div class="cabecera-dias" aria-hidden="true"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+        <!-- LÓGICA: vista-calendario.js dibuja la cuadrícula (muestra estática) -->
+        <div class="rejilla-mes" id="rejilla-mes" data-segmentado="dia-calendario" role="group" aria-label="Días del mes"><button type="button" class="dia-cal otro" aria-pressed="false" aria-label="28 de septiembre"><span>28</span><span class="indicadores"></span></button><button type="button" class="dia-cal otro" aria-pressed="false" aria-label="29 de septiembre"><span>29</span><span class="indicadores"></span></button><button type="button" class="dia-cal otro" aria-pressed="false" aria-label="30 de septiembre"><span>30</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="1 de octubre"><span>1</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="2 de octubre, 3 eventos"><span>2</span><span class="indicadores"><span class="punto"></span><span class="punto"></span><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="3 de octubre"><span>3</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="4 de octubre"><span>4</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="5 de octubre, 2 eventos"><span>5</span><span class="indicadores"><span class="punto"></span><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="6 de octubre"><span>6</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="7 de octubre, 1 eventos"><span>7</span><span class="indicadores"><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="8 de octubre"><span>8</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="9 de octubre, 3 eventos"><span>9</span><span class="indicadores"><span class="punto"></span><span class="punto"></span><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="10 de octubre"><span>10</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="11 de octubre"><span>11</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="12 de octubre, 2 eventos"><span>12</span><span class="indicadores"><span class="punto"></span><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="13 de octubre"><span>13</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="14 de octubre, 1 eventos, 1 nota"><span>14</span><span class="indicadores"><span class="punto"></span><span class="cuadro vencida"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="15 de octubre"><span>15</span><span class="indicadores"></span></button><button type="button" class="dia-cal es-hoy" aria-pressed="true" aria-label="16 de octubre, 3 eventos, 1 nota"><span>16</span><span class="indicadores"><span class="punto"></span><span class="punto"></span><span class="punto"></span><span class="cuadro"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="17 de octubre"><span>17</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="18 de octubre"><span>18</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="19 de octubre, 2 eventos, 1 nota"><span>19</span><span class="indicadores"><span class="punto"></span><span class="punto"></span><span class="cuadro"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="20 de octubre"><span>20</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="21 de octubre, 1 eventos"><span>21</span><span class="indicadores"><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="22 de octubre"><span>22</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="23 de octubre, 3 eventos"><span>23</span><span class="indicadores"><span class="punto"></span><span class="punto"></span><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="24 de octubre"><span>24</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="25 de octubre"><span>25</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="26 de octubre, 2 eventos"><span>26</span><span class="indicadores"><span class="punto"></span><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="27 de octubre"><span>27</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="28 de octubre, 1 eventos"><span>28</span><span class="indicadores"><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="29 de octubre"><span>29</span><span class="indicadores"></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="30 de octubre, 3 eventos"><span>30</span><span class="indicadores"><span class="punto"></span><span class="punto"></span><span class="punto"></span></span></button><button type="button" class="dia-cal" aria-pressed="false" aria-label="31 de octubre"><span>31</span><span class="indicadores"></span></button><button type="button" class="dia-cal otro" aria-pressed="false" aria-label="1 de noviembre"><span>1</span><span class="indicadores"></span></button></div>
+
+        <div id="detalle-dia">
+          <h2 class="seccion-titulo">viernes, 16 de octubre</h2>
+          <button class="tarjeta fila-semana" type="button" data-abrir="hoja-evento"><span class="evento-titulo">Clase de programación</span><span class="evento-horas">08:00 – 10:00</span></button>
+          <button class="tarjeta fila-semana" type="button" data-abrir="hoja-evento"><span class="evento-titulo">Almuerzo</span><span class="evento-horas">12:30 – 13:30</span></button>
+          <button class="tarjeta fila-semana" type="button" data-abrir="hoja-nota"><span data-icono="nota" data-etiqueta="Nota"></span><span class="evento-titulo">Entregar informe</span><span class="evento-horas">18:00</span></button>
+        </div>
+      </section>
+
+      <!-- ===================== AJUSTES ===================== -->
+      <section class="vista" id="vista-ajustes" aria-labelledby="titulo-ajustes" hidden>
+        <header class="cabecera"><h1 id="titulo-ajustes">Ajustes</h1></header>
+
+        <article class="tarjeta">
+          <h2 class="campo-titulo" id="titulo-modo">Modo</h2>
+          <div class="segmentado" id="modo-opciones" data-segmentado="modo" role="group" aria-labelledby="titulo-modo"></div>
+          <h2 class="campo-titulo" id="titulo-acento">Acento</h2>
+          <div class="muestras" id="acentos" role="group" aria-labelledby="titulo-acento"></div>
+          <p class="subtitulo" id="acento-nombre"></p>
+        </article>
+
+        <article class="tarjeta">
+          <h2 class="campo-titulo" id="titulo-indicador">Indicador del día actual</h2>
+          <div class="fondos" id="indicador-opciones" role="group" aria-labelledby="titulo-indicador"></div>
+        </article>
+
+        <article class="tarjeta">
+          <h2 class="campo-titulo" id="titulo-fondo">Fondo</h2>
+          <div class="fondos" id="fondo-opciones" role="group" aria-labelledby="titulo-fondo"></div>
+        </article>
+
+        <article class="tarjeta">
+          <h2 class="campo-titulo">Turnos</h2>
+          <!-- LÓGICA (fase 3): lista de turnos guardados -->
+          <div class="lista-turnos" id="lista-turnos">
+            <button class="turno" type="button" data-abrir="hoja-turno"><span>Mañana</span><span>06:00 – 14:00</span></button>
+            <button class="turno" type="button" data-abrir="hoja-turno"><span>Tarde</span><span>14:00 – 22:00</span></button>
+          </div>
+          <button class="boton-borde" type="button" data-abrir="hoja-turno">+ Añadir turno</button>
+        </article>
+
+        <article class="tarjeta">
+          <h2 class="campo-titulo">Avisos</h2>
+          <div class="fila-opcion"><span id="et-avisos">Permitir avisos</span><button class="interruptor" type="button" role="switch" aria-checked="true" aria-labelledby="et-avisos"></button></div>
+          <div class="fila-opcion"><span>Permiso del dispositivo: sin solicitar</span><button class="boton-borde" type="button">Solicitar</button></div>
+          <h3 class="seccion-titulo">Próximos avisos</h3>
+          <!-- LÓGICA (fase 6): avisos de los próximos 7 días -->
+          <div class="fila-opcion"><span>Almuerzo · hoy 12:20</span><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Aviso de Almuerzo"></button></div>
+          <div class="fila-opcion"><span>Reunión de equipo · hoy 14:50</span><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Aviso de Reunión de equipo"></button></div>
+          <div class="acciones">
+            <button class="boton-borde" type="button" data-abrir="alerta">Probar aviso</button>
+            <button class="boton-borde" type="button">Exportar .ics</button>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <!-- Barra inferior -->
+    <nav class="barra" aria-label="Secciones">
+      <button type="button" data-pestana="hoy" aria-current="page"><span data-icono="reloj" data-etiqueta="Hoy"></span><span>Hoy</span></button>
+      <button type="button" data-pestana="semana"><span data-icono="semana" data-etiqueta="Semana"></span><span>Semana</span></button>
+      <button type="button" data-pestana="calendario"><span data-icono="calendario" data-etiqueta="Calendario"></span><span>Calendario</span></button>
+      <button type="button" data-pestana="ajustes"><span data-icono="ajustes" data-etiqueta="Ajustes"></span><span>Ajustes</span></button>
+    </nav>
+
+    <!-- Botón + y sus opciones -->
+    <div class="velo" id="velo"></div>
+    <div class="abanico" id="abanico" hidden>
+      <button class="opcion-abanico" type="button" data-abrir="hoja-nota"><span data-icono="nota" data-etiqueta="Nueva nota"></span>Nueva nota</button>
+      <button class="opcion-abanico" type="button" data-abrir="hoja-evento"><span data-icono="reloj" data-etiqueta="Nuevo evento"></span>Nuevo evento</button>
+    </div>
+    <button class="boton-mas" id="boton-mas" type="button" aria-expanded="false" aria-label="Añadir nota o evento"><span data-icono="mas" data-etiqueta="Añadir"></span></button>
+  </div>
+
+  <!-- ===================== HOJA DE EVENTO ===================== -->
+  <dialog class="hoja" id="hoja-evento" aria-labelledby="titulo-hoja-evento">
+    <div class="hoja-contenido">
+      <h2 id="titulo-hoja-evento">Evento</h2>
+      <label class="campo"><span>Título</span><input class="entrada" type="text" maxlength="60" placeholder="Sin título"></label>
+      <div class="campo"><span id="et-dia">Día</span><div class="dias" data-segmentado="dia-evento" role="group" aria-labelledby="et-dia"><button type="button" data-valor="0" aria-label="Lunes" aria-pressed="false">L</button><button type="button" data-valor="1" aria-label="Martes" aria-pressed="false">M</button><button type="button" data-valor="2" aria-label="Miércoles" aria-pressed="false">X</button><button type="button" data-valor="3" aria-label="Jueves" aria-pressed="false">J</button><button type="button" data-valor="4" aria-label="Viernes" aria-pressed="true">V</button><button type="button" data-valor="5" aria-label="Sábado" aria-pressed="false">S</button><button type="button" data-valor="6" aria-label="Domingo" aria-pressed="false">D</button></div></div>
+      <div class="campo"><span id="et-repeticion">Repetición</span>
+        <div class="segmentado" data-segmentado="repeticion" role="group" aria-labelledby="et-repeticion">
+          <button type="button" data-valor="indefinido" aria-pressed="true">Indefinido</button>
+          <button type="button" data-valor="una-vez" aria-pressed="false">Por una vez</button>
+        </div>
+      </div>
+      <label class="campo" id="fecha-una-vez" hidden><span>Fecha</span><input class="entrada" id="fecha-evento" type="date"><span class="ayuda">Semana actual o futuras; no semanas pasadas.</span></label>
+      <div class="campo"><span>Turnos</span>
+        <div class="fila-turnos"><button type="button">Mañana</button><button type="button">Tarde</button></div>
+      </div>
+      <div class="horas-fila">
+        <div data-rueda data-letra="I" data-etiqueta="Inicio" data-hora="9"></div>
+        <div data-rueda data-letra="F" data-etiqueta="Fin" data-hora="10"></div>
+      </div>
+      <div class="fila-opcion"><span id="et-avisar-ev">Avisar</span><button class="interruptor" type="button" role="switch" aria-checked="false" aria-labelledby="et-avisar-ev" data-revela="antelacion-ev"></button></div>
+      <div class="segmentado" id="antelacion-ev" data-segmentado="antelacion-ev" role="group" aria-label="Antelación del aviso" hidden>
+        <button type="button" data-valor="0" aria-pressed="true">A la hora</button>
+        <button type="button" data-valor="10" aria-pressed="false">10 min</button>
+        <button type="button" data-valor="30" aria-pressed="false">30 min</button>
+        <button type="button" data-valor="60" aria-pressed="false">1 h</button>
+      </div>
+      <button class="enlace" type="button" data-revela-nota="nota-evento">+ Nota</button>
+      <label class="campo" id="nota-evento" hidden><span>Nota</span><textarea class="entrada" maxlength="500"></textarea></label>
+      <div class="acciones">
+        <button class="boton-peligro" type="button" data-cerrar>Borrar</button>
+        <button class="boton-borde" type="button" data-cerrar>Cancelar</button>
+        <button class="boton-principal" type="button" data-cerrar>Guardar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ===================== HOJA DE NOTA ===================== -->
+  <dialog class="hoja" id="hoja-nota" aria-labelledby="titulo-hoja-nota">
+    <div class="hoja-contenido">
+      <h2 id="titulo-hoja-nota">Nota</h2>
+      <label class="campo"><span>Título</span><input class="entrada" type="text" maxlength="60" placeholder="Sin título"></label>
+      <label class="campo"><span>Texto</span><textarea class="entrada" maxlength="2000"></textarea></label>
+      <div class="fila-opcion"><span id="et-limite">Fecha límite</span><button class="interruptor" type="button" role="switch" aria-checked="false" aria-labelledby="et-limite" data-revela="bloque-limite"></button></div>
+      <div id="bloque-limite" hidden>
+        <label class="campo"><span>Fecha</span><input class="entrada" type="date"></label>
+        <div class="horas-fila"><div data-rueda data-letra="H" data-etiqueta="Hora límite" data-hora="23" data-minuto="55"></div></div>
+        <div class="fila-opcion"><span id="et-avisar-nota">Avisar</span><button class="interruptor" type="button" role="switch" aria-checked="false" aria-labelledby="et-avisar-nota" data-revela="antelacion-nota"></button></div>
+        <div class="segmentado" id="antelacion-nota" data-segmentado="antelacion-nota" role="group" aria-label="Antelación del aviso" hidden>
+          <button type="button" data-valor="0" aria-pressed="true">A la hora</button>
+          <button type="button" data-valor="10" aria-pressed="false">10 min</button>
+          <button type="button" data-valor="60" aria-pressed="false">1 h</button>
+          <button type="button" data-valor="1440" aria-pressed="false">1 día</button>
+        </div>
+      </div>
+      <div class="fila-opcion"><span id="et-fijar">Fijar en Hoy</span><button class="interruptor" type="button" role="switch" aria-checked="false" aria-labelledby="et-fijar"></button></div>
+      <div class="acciones">
+        <button class="boton-peligro" type="button" data-cerrar>Borrar</button>
+        <button class="boton-borde" type="button" data-cerrar>Cancelar</button>
+        <button class="boton-principal" type="button" data-cerrar>Guardar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ===================== HOJA DE TURNO ===================== -->
+  <dialog class="hoja" id="hoja-turno" aria-labelledby="titulo-hoja-turno">
+    <div class="hoja-contenido">
+      <h2 id="titulo-hoja-turno">Turno</h2>
+      <label class="campo"><span>Nombre</span><input class="entrada" type="text" maxlength="30" placeholder="Mañana"></label>
+      <div class="horas-fila">
+        <div data-rueda data-letra="I" data-etiqueta="Inicio del turno" data-hora="6"></div>
+        <div data-rueda data-letra="F" data-etiqueta="Fin del turno" data-hora="14"></div>
+      </div>
+      <div class="acciones">
+        <button class="boton-peligro" type="button" data-cerrar>Borrar</button>
+        <button class="boton-borde" type="button" data-cerrar>Cancelar</button>
+        <button class="boton-principal" type="button" data-cerrar>Guardar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ===================== HOJA DE PLANIFICACIÓN ===================== -->
+  <dialog class="hoja" id="hoja-plan" aria-labelledby="titulo-hoja-plan">
+    <div class="hoja-contenido">
+      <h2 id="titulo-hoja-plan">Planificar semana</h2>
+      <p class="subtitulo" id="rango-plan">12 – 18 de octubre</p>
+      <div class="campo"><span id="et-tipo-plan">Tipo</span>
+        <div class="segmentado" data-segmentado="tipo-plan" role="group" aria-labelledby="et-tipo-plan">
+          <button type="button" data-valor="indefinido" aria-pressed="true">Indefinido</button>
+          <button type="button" data-valor="una-vez" aria-pressed="false">Por una vez</button>
+        </div>
+      </div>
+      <label class="fila-plan"><span>Lunes</span><select class="entrada"><option>Libre</option><option>Mañana · 06:00–14:00</option><option>Tarde · 14:00–22:00</option></select></label><label class="fila-plan"><span>Martes</span><select class="entrada"><option>Libre</option><option>Mañana · 06:00–14:00</option><option>Tarde · 14:00–22:00</option></select></label><label class="fila-plan"><span>Miércoles</span><select class="entrada"><option>Libre</option><option>Mañana · 06:00–14:00</option><option>Tarde · 14:00–22:00</option></select></label><label class="fila-plan"><span>Jueves</span><select class="entrada"><option>Libre</option><option>Mañana · 06:00–14:00</option><option>Tarde · 14:00–22:00</option></select></label><label class="fila-plan"><span>Viernes</span><select class="entrada"><option>Libre</option><option>Mañana · 06:00–14:00</option><option>Tarde · 14:00–22:00</option></select></label><label class="fila-plan"><span>Sábado</span><select class="entrada"><option>Libre</option><option>Mañana · 06:00–14:00</option><option>Tarde · 14:00–22:00</option></select></label><label class="fila-plan"><span>Domingo</span><select class="entrada"><option>Libre</option><option>Mañana · 06:00–14:00</option><option>Tarde · 14:00–22:00</option></select></label>
+      <div class="acciones">
+        <button class="boton-borde" type="button" data-cerrar>Cancelar</button>
+        <button class="boton-principal" type="button" data-cerrar>Aplicar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ===================== AVISO EMERGENTE ===================== -->
+  <dialog class="hoja alerta" id="alerta" role="alertdialog" aria-labelledby="alerta-titulo" aria-describedby="alerta-texto">
+    <div class="hoja-contenido">
+      <h2 id="alerta-titulo">Aviso de prueba</h2>
+      <p id="alerta-texto">Así se verán los avisos dentro de la app.</p>
+      <div class="acciones"><button class="boton-principal" type="button" data-cerrar>Entendido</button></div>
+    </div>
+  </dialog>
+</body>
+</html>

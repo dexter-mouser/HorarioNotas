@@ -1,0 +1,71 @@
+/* ==========================================================
+   tono.css — Paleta de colores (modo claro, oscuro y acento)
+   Solo define variables; los componentes viven en style.css.
+   Las variables --acento-o / --acento-c las recalcula color.js
+   y las escribe tema.js en <html>.
+   ========================================================== */
+
+/* ---------- Modo claro (por defecto) ---------- */
+:root {
+  color-scheme: light;
+  --fondo: #e6e6e3;             /* grises neutros, sin blanco puro */
+  --superficie: #f3f3f1;
+  --superficie-2: #dadad6;
+  --borde: #c8c8c3;
+  --borde-fuerte: #6b6b66;      /* contornos de controles (>= 3:1) */
+  --texto: #1b1b19;
+  --texto-suave: #4a4a46;
+  --peligro: #a8231b;
+  --indicador: #8a5a00;         /* marca del día actual (distinta del acento) */
+  --sombra: 0 6px 18px rgba(30, 30, 28, 0.2);
+  --escena-opacidad: 0.55;
+
+  /* Acento por defecto (Naranja), valores ya ajustados por modo */
+  --acento-o: #ff7a2f;  --texto-sobre-o: #0d0f14;  --acento-texto-o: #ff7a2f;
+  --acento-c: #c25d24;  --texto-sobre-c: #0d0f14;  --acento-texto-c: #99491c;
+
+  /* Acento activo en este modo */
+  --acento: var(--acento-c);
+  --texto-sobre-acento: var(--texto-sobre-c);
+  --acento-texto: var(--acento-texto-c);
+}
+
+/* ---------- Modo oscuro: preferencia del sistema ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    color-scheme: dark;
+    --fondo: #0d0f14;
+    --superficie: #161a22;
+    --superficie-2: #1f2430;
+    --borde: #2b3140;
+    --borde-fuerte: #7d869b;
+    --texto: #f2f4f8;
+    --texto-suave: #a9b1c3;
+    --peligro: #ff8a80;
+    --indicador: #ffd24a;
+    --sombra: 0 6px 18px rgba(0, 0, 0, 0.55);
+    --escena-opacidad: 1;
+    --acento: var(--acento-o);
+    --texto-sobre-acento: var(--texto-sobre-o);
+    --acento-texto: var(--acento-texto-o);
+  }
+}
+
+/* ---------- Modo oscuro: elección manual ---------- */
+:root[data-tema="oscuro"] {
+  color-scheme: dark;
+  --fondo: #0d0f14;
+  --superficie: #161a22;
+  --superficie-2: #1f2430;
+  --borde: #2b3140;
+  --borde-fuerte: #7d869b;
+  --texto: #f2f4f8;
+  --texto-suave: #a9b1c3;
+  --peligro: #ff8a80;
+  --indicador: #ffd24a;
+  --sombra: 0 6px 18px rgba(0, 0, 0, 0.55);
+  --escena-opacidad: 1;
+  --acento: var(--acento-o);
+  --texto-sobre-acento: var(--texto-sobre-o);
+  --acento-texto: var(--acento-texto-o);
+}
