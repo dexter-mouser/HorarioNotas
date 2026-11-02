@@ -20,11 +20,19 @@ const $ = (id) => document.getElementById(id);
 /* ---------- Apariencia (se dibuja una sola vez) ---------- */
 function dibujarModos() {
   const grupo = $('modo-opciones');
-  const actual = obtenerModo();
   MODOS.forEach((modo) => {
-    grupo.append(crear('button', { type: 'button', 'data-valor': modo.id, 'aria-pressed': String(modo.id === actual) }, modo.nombre));
+    grupo.append(crear('button', { type: 'button', 'data-valor': modo.id }, modo.nombre));
   });
+
+  function marcar() {
+    const actual = obtenerModo();
+    grupo.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.valor === actual)));
+  }
+
   grupo.addEventListener('cambio', (evento) => fijarModo(evento.detail.valor));
+  // El modo también cambia desde el botón de Hoy: hay que reflejarlo aquí
+  document.addEventListener('tema:cambio', marcar);
+  marcar();
 }
 
 function dibujarAcentos() {

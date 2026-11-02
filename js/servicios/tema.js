@@ -3,11 +3,11 @@ import { calcularVariablesAcento, esHexValido } from '../nucleo/color.js';
 import { CLAVES, leerTexto, guardarTexto, guardarJSON } from '../datos/almacenamiento.js';
 
 export const ACENTOS = [
-  { id: 'naranja', nombre: 'Naranja', hex: '#ff7a2f' },
-  { id: 'hielo', nombre: 'Blanco hielo', hex: '#e6f2ff' },
-  { id: 'menta', nombre: 'Menta', hex: '#7dffc4' },
-  { id: 'celeste', nombre: 'Celeste', hex: '#6fdcff' },
-  { id: 'rosa', nombre: 'Rosa', hex: '#ff8ec7' },
+  { id: 'coral', nombre: 'Coral', hex: '#ff6b4a' },
+  { id: 'ambar', nombre: 'Ámbar', hex: '#ffb547' },
+  { id: 'jade', nombre: 'Jade', hex: '#34d399' },
+  { id: 'indigo', nombre: 'Índigo', hex: '#6b8cff' },
+  { id: 'lavanda', nombre: 'Lavanda', hex: '#c084fc' },
 ];
 export const MODOS = [
   { id: 'sistema', nombre: 'Sistema' },

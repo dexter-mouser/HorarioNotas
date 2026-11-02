@@ -5,45 +5,51 @@
    y las escribe tema.js en <html>.
    ========================================================== */
 
-/* ---------- Modo claro (por defecto) ---------- */
+/* ---------- Modo claro (por defecto): piedra cálida ---------- */
 :root {
   color-scheme: light;
-  --fondo: #e6e6e3;             /* grises neutros, sin blanco puro */
-  --superficie: #f3f3f1;
-  --superficie-2: #dadad6;
-  --borde: #c8c8c3;
-  --borde-fuerte: #6b6b66;      /* contornos de controles (>= 3:1) */
-  --texto: #1b1b19;
-  --texto-suave: #4a4a46;
+  --fondo: #efede8;             /* grises cálidos, sin blanco puro */
+  --superficie: #f9f8f5;
+  --superficie-2: #e4e1da;
+  --borde: #d6d2ca;
+  --borde-fuerte: #6e6a62;      /* contornos de controles (>= 3:1) */
+  --texto: #1c1b19;
+  --texto-suave: #55524b;
   --peligro: #a8231b;
   --indicador: #8a5a00;         /* marca del día actual (distinta del acento) */
-  --sombra: 0 6px 18px rgba(30, 30, 28, 0.2);
+  --sombra: 0 10px 30px rgba(40, 34, 24, 0.16), 0 2px 6px rgba(40, 34, 24, 0.08);
+  --sombra-tarjeta: 0 1px 2px rgba(40, 34, 24, 0.06), 0 4px 14px rgba(40, 34, 24, 0.05);
+  --velo: rgba(28, 27, 25, 0.45);
   --escena-opacidad: 0.55;
 
-  /* Acento por defecto (Naranja), valores ya ajustados por modo */
-  --acento-o: #ff7a2f;  --texto-sobre-o: #0d0f14;  --acento-texto-o: #ff7a2f;
-  --acento-c: #c25d24;  --texto-sobre-c: #0d0f14;  --acento-texto-c: #99491c;
+  /* Acento por defecto (Coral), valores ya ajustados por modo */
+  --acento-o: #ff6b4a;  --texto-sobre-o: #11131a;  --acento-texto-o: #ff6b4a;
+  --acento-c: #d1583d;  --texto-sobre-c: #11131a;  --acento-texto-c: #a3442f;
 
   /* Acento activo en este modo */
   --acento: var(--acento-c);
   --texto-sobre-acento: var(--texto-sobre-c);
   --acento-texto: var(--acento-texto-c);
+  /* Tinte suave del acento para fondos de elementos activos */
+  --acento-suave: color-mix(in srgb, var(--acento) 14%, var(--superficie));
 }
 
 /* ---------- Modo oscuro: preferencia del sistema ---------- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-tema="claro"]) {
     color-scheme: dark;
-    --fondo: #0d0f14;
-    --superficie: #161a22;
-    --superficie-2: #1f2430;
-    --borde: #2b3140;
-    --borde-fuerte: #7d869b;
-    --texto: #f2f4f8;
-    --texto-suave: #a9b1c3;
+    --fondo: #11131a;
+    --superficie: #1a1d27;
+    --superficie-2: #242836;
+    --borde: #2e3344;
+    --borde-fuerte: #7f889e;
+    --texto: #eef0f6;
+    --texto-suave: #a7aec0;
     --peligro: #ff8a80;
     --indicador: #ffd24a;
-    --sombra: 0 6px 18px rgba(0, 0, 0, 0.55);
+    --sombra: 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
+    --sombra-tarjeta: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.18);
+    --velo: rgba(5, 6, 10, 0.6);
     --escena-opacidad: 1;
     --acento: var(--acento-o);
     --texto-sobre-acento: var(--texto-sobre-o);
@@ -54,16 +60,18 @@
 /* ---------- Modo oscuro: elección manual ---------- */
 :root[data-tema="oscuro"] {
   color-scheme: dark;
-  --fondo: #0d0f14;
-  --superficie: #161a22;
-  --superficie-2: #1f2430;
-  --borde: #2b3140;
-  --borde-fuerte: #7d869b;
-  --texto: #f2f4f8;
-  --texto-suave: #a9b1c3;
+  --fondo: #11131a;
+  --superficie: #1a1d27;
+  --superficie-2: #242836;
+  --borde: #2e3344;
+  --borde-fuerte: #7f889e;
+  --texto: #eef0f6;
+  --texto-suave: #a7aec0;
   --peligro: #ff8a80;
   --indicador: #ffd24a;
-  --sombra: 0 6px 18px rgba(0, 0, 0, 0.55);
+  --sombra: 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --sombra-tarjeta: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.18);
+  --velo: rgba(5, 6, 10, 0.6);
   --escena-opacidad: 1;
   --acento: var(--acento-o);
   --texto-sobre-acento: var(--texto-sobre-o);

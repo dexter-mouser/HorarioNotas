@@ -2,10 +2,10 @@
 
 // Colores de base de cada modo (deben coincidir con tono.css)
 const BASES = {
-  oscuro: { fondo: '#0d0f14', superficies: ['#161a22', '#1f2430'] },
-  claro: { fondo: '#e6e6e3', superficies: ['#f3f3f1', '#dadad6'] },
+  oscuro: { fondo: '#11131a', superficies: ['#1a1d27', '#242836'] },
+  claro: { fondo: '#efede8', superficies: ['#f9f8f5', '#e4e1da'] },
 };
-const TEXTO_OSCURO = '#0d0f14';
+const TEXTO_OSCURO = '#11131a';
 const TEXTO_CLARO = '#ffffff';
 const PASO_MEZCLA = 0.02;
 

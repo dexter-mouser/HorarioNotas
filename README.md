@@ -67,7 +67,7 @@ Cabecera con el título, la fecha completa y un botón redondo para alternar cla
 
 Tarjetas, en este orden:
 - **Modo**: Sistema, Claro u Oscuro.
-- **Acento**: cinco colores predefinidos y un selector de **color libre**. Predefinidos: **Naranja** `#ff7a2f` (por defecto), **Blanco hielo** `#e6f2ff`, **Menta** `#7dffc4`, **Celeste** `#6fdcff` y **Rosa** `#ff8ec7`. Debajo se muestra el nombre y código del elegido.
+- **Acento**: cinco colores predefinidos y un selector de **color libre**. Predefinidos: **Coral** `#ff6b4a` (por defecto), **Ámbar** `#ffb547`, **Jade** `#34d399`, **Índigo** `#6b8cff` y **Lavanda** `#c084fc`. Debajo se muestra el nombre y código del elegido.
 - **Indicador del día actual**: forma que marca el día de hoy en la pantalla Hoy: **Estrella** (por defecto), **Rombo** o **Corazón**.
 - **Fondo**: **Estándar**, el color liso del tema. La tarjeta admite más opciones de fondo.
 - **Turnos**: lista de turnos guardados (hasta 12). Tocar uno lo edita; **+ Añadir turno** crea otro.
@@ -192,7 +192,7 @@ Cada evento y cada nota con límite tiene su propio aviso, apagado por defecto. 
 
 ## 9. Tema, acento y fondos
 
-**Modo**: el modo claro usa grises neutros, sin blanco puro, para una vista menos brillante. Sin elección manual sigue la preferencia del sistema y cambia en vivo. Con **Claro**, **Oscuro** o el botón de Hoy, se fija esa elección.
+**Modo**: el modo claro usa grises cálidos tipo piedra, sin blanco puro, para una vista menos brillante; el oscuro, tonos azul noche. Sin elección manual sigue la preferencia del sistema y cambia en vivo. Con **Claro**, **Oscuro** o el botón de Hoy, se fija esa elección.
 
 **Acento**: colorea botones principales, día seleccionado, etiquetas, interruptores, iconos activos, bordes destacados, enlaces y la franja de ocupación. Se guarda en el dispositivo y se aplica antes de pintar la pantalla.
 
@@ -223,7 +223,7 @@ Todo se guarda en `localStorage`. Al leer se valida cada elemento y se descarta 
 
 ## 11. Accesibilidad y seguridad
 
-- Icono de la app en `img/icono.svg`; el resto de iconos son SVG en línea que heredan el color del tema, todos con `aria-label`.
+- Icono de la app en `img/icono.svg` (calendario con marca de hecho, con versiones PNG para instalar); el resto de iconos son SVG en línea que heredan el color del tema, todos con `aria-label`.
 - Solo fuentes del sistema.
 - Contraste mínimo de 4.5:1 en texto, en ambos modos y con cualquier acento; contornos de controles de al menos 3:1.
 - Ventanas (hojas, menú +, avisos) como diálogos modales: foco contenido, **Esc** cierra y el foco regresa a quien las abrió.
