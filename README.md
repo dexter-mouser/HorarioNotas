@@ -223,7 +223,7 @@ Todo se guarda en `localStorage`. Al leer se valida cada elemento y se descarta 
 
 ## 11. Accesibilidad y seguridad
 
-- Icono de la app en `img/icono.svg` (calendario con marca de hecho, con versiones PNG para instalar); el resto de iconos son SVG en línea que heredan el color del tema, todos con `aria-label`.
+- Icono de la app en `img/icono.svg` (calendario con el día de hoy marcado por un punto, con versiones PNG para instalar); el resto de iconos son SVG en línea que heredan el color del tema, todos con `aria-label`.
 - Solo fuentes del sistema.
 - Contraste mínimo de 4.5:1 en texto, en ambos modos y con cualquier acento; contornos de controles de al menos 3:1.
 - Ventanas (hojas, menú +, avisos) como diálogos modales: foco contenido, **Esc** cierra y el foco regresa a quien las abrió.

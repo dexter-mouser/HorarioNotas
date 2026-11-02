@@ -9,8 +9,8 @@ const CALENDARIO = ['M7 4.5h10a3 3 0 0 1 3 3V17a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7.
 const TRAZOS = {
   reloj: ['M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17z', 'M12 7.5V12l3 2'],
   semana: [...CALENDARIO, 'M8 13.5h8', 'M8 16.5h5'],
-  // Mismo motivo que el icono de la app: calendario con check
-  calendario: [...CALENDARIO, 'M9 14.5l2 2 4-4'],
+  // Mismo motivo que el icono de la app: días del mes con el de hoy resaltado
+  calendario: [...CALENDARIO, 'M8.5 13.5h.01', 'M12 13.5h.01', 'M8.5 16.8h.01', 'M12 16.8h.01', 'M15.5 16.8h.01', 'M15.5 12.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z'],
   ajustes: ['M4 7h9', 'M19 7h1', 'M4 17h1', 'M11 17h9', 'M16 4.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z', 'M8 14.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z'],
   mas: ['M12 5v14', 'M5 12h14'],
   cerrar: ['M6.5 6.5l11 11', 'M17.5 6.5l-11 11'],

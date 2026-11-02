@@ -1,7 +1,7 @@
 // sw.js — Funcionamiento sin conexión y notificaciones
 // Una sola caché: guarda todos los archivos la primera vez, los sirve al instante
 // y los actualiza en segundo plano (se ven en la siguiente apertura).
-const CACHE = 'horario-v3';
+const CACHE = 'horario-v4';
 const ARCHIVOS = [
   './',
   'index.html',
